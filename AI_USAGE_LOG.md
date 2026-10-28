@@ -32,3 +32,19 @@
   `src/HomeScreen.tsx` for code that is unreachable today.
 - **Developer accepted / rejected:** to be filled in by the developer.
 - **Verify manually:** tests mock Reanimated, so animation is not covered; run on a simulator.
+
+## 2026-10-28: real Joke API client
+
+- **Tool / model:** Claude Code, configured model `claude-sonnet-5-5` (the serving model may differ).
+- **Prompts (summarized):** "pull, do the plan, give patch for git apply"; "pull, new patch, this one
+  doesn't work" (the first patch was stale after `origin/hidden` moved).
+- **Changed:** `src/api/jokes.ts` (real `GET /random_joke`, 8 s timeout, status and payload checks),
+  `src/api/jokes.test.ts` (13 tests), `src/testing/fetch.ts` and a default `fetch` mock in
+  `jest.setup.ts` (the stub joke payload, so existing tests keep passing), `jest.config.cjs`
+  (types-only `src/navigation/types.ts` excluded from coverage).
+- **Not changed on purpose:** `useJoke`, `JokeCard`, analytics: the remote branch already has its own
+  status, `joke_load_failed` and stale-response handling.
+- **Verify manually:** run `curl -s https://official-joke-api.appspot.com/random_joke` (the payload
+  shape was not seen from the sandbox: `id` must be a number); on an iOS simulator check load,
+  30 s refresh, and the error state in Airplane Mode. `bun run lint` fails on a clean checkout here
+  (putout rule `preserve-caught-error` not found), so `tsc` and `coverage` were the gates.

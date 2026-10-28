@@ -49,7 +49,12 @@ jest.mock('@react-navigation/native-stack', () => ({
     }),
 }));
 
+const fetchHelpers = jest.requireActual('./src/testing/fetch');
+
+globalThis.fetch = fetchHelpers.fetchMock;
+
 beforeEach(() => {
     jest.clearAllMocks();
+    fetchHelpers.resetFetch();
     jest.requireActual('./src/testing/navigation').route.params.showId = 's2';
 });

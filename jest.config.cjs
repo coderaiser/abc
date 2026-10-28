@@ -10,6 +10,7 @@ module.exports = {
         'src/**/*.{ts,tsx}',
         '!src/**/*.test.{ts,tsx}',
         '!src/testing/**',
+        '!src/navigation/types.ts',
     ],
     coverageThreshold: {
         global: {
