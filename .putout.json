@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "promises/remove-useless-async": "off",
+        "nodejs/declare": "off"
+    }
+}

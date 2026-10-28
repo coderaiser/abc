@@ -1,14 +1,16 @@
 {
   "name": "the-punchline-rn",
+  "type": "module",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "lint": "eslint .",
-    "tsc": "tsc --noEmit",
-    "test": "jest"
+    "android": "madrun android",
+    "ios": "madrun ios",
+    "start": "madrun start",
+    "lint": "madrun lint",
+    "fix:lint": "madrun fix:lint",
+    "tsc": "madrun tsc",
+    "test": "madrun test"
   },
   "dependencies": {
     "@amplitude/analytics-react-native": "^1.4.0",
@@ -31,6 +33,7 @@
     "@react-native/metro-config": "^0.88.1",
     "@types/react": "^19.3.0",
     "eslint-plugin-putout": "^31.4.2",
+    "jiti": "^2.7.0",
     "madrun": "^13.0.4",
     "putout": "^42.22.1",
     "typescript": "^6.0.0"
