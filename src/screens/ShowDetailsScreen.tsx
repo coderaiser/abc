@@ -9,8 +9,9 @@ import {
     RouteProp,
 } from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {RootStackParamList} from '../App';
-import {SHOWS, colors} from './data';
+import {RootStackParamList} from '../navigation/types';
+import {colors} from '../theme/colors';
+import {SHOWS} from '../features/shows/shows';
 
 export function ShowDetailsScreen() {
     const navigation = useNavigation();
