@@ -1,8 +1,14 @@
 import * as amplitude from '@amplitude/analytics-react-native';
+import {getAmplitudeApiKey} from '../config/env';
 
-// TODO(candidate): move the key out of source.
+// The key comes from `.env` (AMPLITUDE_API_KEY). Without a key analytics is off.
 export const initAnalytics = () => {
-    amplitude.init('REPLACE_WITH_YOUR_AMPLITUDE_API_KEY');
+    const apiKey = getAmplitudeApiKey();
+    
+    if (!apiKey)
+        return;
+    
+    amplitude.init(apiKey);
 };
 
 export type JokeLoadedProps = {

@@ -1,4 +1,5 @@
 import * as amplitude from '@amplitude/analytics-react-native';
+import Config from 'react-native-config';
 import {
     initAnalytics,
     trackBookingSubmitted,
@@ -7,10 +8,22 @@ import {
     trackJokeRefreshed,
 } from '.';
 
-test('initAnalytics: initialises Amplitude', () => {
+afterEach(() => {
+    Config.AMPLITUDE_API_KEY = 'test-amplitude-key';
+});
+
+test('initAnalytics: initialises Amplitude with the key from the environment', () => {
     initAnalytics();
     
-    expect(amplitude.init).toHaveBeenCalledWith('REPLACE_WITH_YOUR_AMPLITUDE_API_KEY');
+    expect(amplitude.init).toHaveBeenCalledWith('test-amplitude-key');
+});
+
+test.each([undefined, ''])('initAnalytics: does not initialise Amplitude when the key is %j', (key) => {
+    Config.AMPLITUDE_API_KEY = key;
+    
+    initAnalytics();
+    
+    expect(amplitude.init).not.toHaveBeenCalled();
 });
 
 test('trackJokeLoaded: sends joke_loaded with its properties', () => {

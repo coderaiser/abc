@@ -14,6 +14,13 @@ jest.mock('react-native-reanimated', () => {
     };
 });
 
+jest.mock('react-native-config', () => ({
+    __esModule: true,
+    default: {
+        AMPLITUDE_API_KEY: 'test-amplitude-key',
+    },
+}));
+
 jest.mock('@amplitude/analytics-react-native', () => ({
     init: jest.fn(),
     track: jest.fn(),

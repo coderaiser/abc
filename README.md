@@ -38,7 +38,17 @@ to run your submission.
 
 ## Amplitude
 
-The starter calls `amplitude.init(...)` with a placeholder key in `App.tsx`.
+The key is not in the source. It is read from `.env` (`AMPLITUDE_API_KEY`) with
+`react-native-config`:
+
+```bash
+cp .env.example .env     # put your Amplitude API key in .env
+bun run ios              # rebuild: native code reads .env at build time
+```
+
+`initAnalytics()` (`src/analytics`) is called once from `App.tsx`. Without a key
+analytics is off and nothing is sent. `.env` is in `.gitignore`.
+
 Create a free Amplitude account, plug in a real key, and make sure events
 actually arrive in a project you can show us.
 

@@ -48,3 +48,14 @@
   shape was not seen from the sandbox: `id` must be a number); on an iOS simulator check load,
   30 s refresh, and the error state in Airplane Mode. `bun run lint` fails on a clean checkout here
   (putout rule `preserve-caught-error` not found), so `tsc` and `coverage` were the gates.
+
+## 2026-10-28: Amplitude key from .env
+
+- **Tool / model:** Claude Code, configured model `claude-sonnet-5-5` (the serving model may differ).
+- **Prompts (summarized):** "dot env"; "react-native-config".
+- **Changed:** added `react-native-config`, `src/config/env.ts`, `.env.example`, `.env` in
+  `.gitignore`; `initAnalytics` reads the key and does nothing without it; Jest mock of the
+  config in `jest.setup.ts`; tests for the key and for the missing key; README and CONTRIBUTING.
+- **Developer accepted / rejected:** to be filled in by the developer.
+- **Verify manually:** create `.env` with a real key, rebuild the iOS app (`bun run pods`,
+  `bun run ios`), and check events in Amplitude. Not verified here: no Xcode or simulator.

@@ -8,7 +8,7 @@ const initCalls = [...(amplitude.init as jest.Mock).mock.calls];
 
 test('initialises Amplitude on import', () => {
     expect(initCalls).toEqual([
-        ['REPLACE_WITH_YOUR_AMPLITUDE_API_KEY'],
+        ['test-amplitude-key'],
     ]);
 });
 

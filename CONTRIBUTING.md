@@ -6,6 +6,7 @@ Use **bun** only. Do not use npm or yarn, and do not commit `package-lock.json`.
 
 ```bash
 bun install
+cp .env.example .env   # set AMPLITUDE_API_KEY (never commit .env)
 bun run lint        # putout
 bun run fix:lint    # putout --fix
 bun run tsc         # tsc --noEmit
@@ -31,6 +32,7 @@ src/
     joke/                    # JokeCard, useJoke
     shows/                   # ShowsList, shows data, sortByScarcity
     booking/                 # BookingForm, useBookingForm, bookingSchema
+  config/                    # environment values (react-native-config)
   navigation/                # navigator types
   screens/                   # thin screens that only compose features
   testing/                   # test helpers (excluded from coverage)
