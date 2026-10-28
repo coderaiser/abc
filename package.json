@@ -10,7 +10,8 @@
     "lint": "madrun lint",
     "fix:lint": "madrun fix:lint",
     "tsc": "madrun tsc",
-    "test": "madrun test"
+    "test": "madrun test",
+    "coverage": "madrun coverage"
   },
   "dependencies": {
     "@amplitude/analytics-react-native": "^1.4.0",

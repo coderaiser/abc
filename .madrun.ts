@@ -7,5 +7,6 @@ export default {
     'lint': () => 'putout .',
     'fix:lint': () => run('lint', '--fix'),
     'tsc': () => 'tsc --noEmit',
-    'test': () => 'jest --coverage',
+    'test': () => 'jest',
+    'coverage': () => run('test', '--coverage'),
 };
