@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react-native';
 import * as amplitude from '@amplitude/analytics-react-native';
-import App from '../App';
+import App from './App';
 
 // Amplitude is initialised once, when App.tsx is imported
 // (before beforeEach clears the mocks).

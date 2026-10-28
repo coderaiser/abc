@@ -29,7 +29,7 @@ jest.mock('react-native-safe-area-context', () => {
 });
 
 jest.mock('@react-navigation/native', () => {
-    const helpers = jest.requireActual('./__tests__/helpers/navigation');
+    const helpers = jest.requireActual('./src/testing/navigation');
     
     return {
         useNavigation: () => helpers.navigation,
@@ -51,5 +51,5 @@ jest.mock('@react-navigation/native-stack', () => ({
 
 beforeEach(() => {
     jest.clearAllMocks();
-    jest.requireActual('./__tests__/helpers/navigation').route.params.showId = 's2';
+    jest.requireActual('./src/testing/navigation').route.params.showId = 's2';
 });

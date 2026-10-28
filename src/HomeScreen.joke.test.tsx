@@ -5,7 +5,7 @@ import {
     render,
     screen,
 } from '@testing-library/react-native';
-import {HomeScreen} from '../src/HomeScreen';
+import {HomeScreen} from './HomeScreen';
 
 const SETUP = 'I told my therapist about my stage fright.';
 const PUNCHLINE = 'She said, "Break a leg." Now I have two problems.';
@@ -89,6 +89,7 @@ test('stops refreshing after unmount', async () => {
     const view = await render(
         <HomeScreen/>,
     );
+    
     await screen.findByText(SETUP);
     
     await view.unmount();

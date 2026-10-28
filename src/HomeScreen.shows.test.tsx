@@ -3,9 +3,9 @@ import {
     render,
     screen,
 } from '@testing-library/react-native';
-import {HomeScreen} from '../src/HomeScreen';
-import {SHOWS} from '../src/data';
-import {navigation} from './helpers/navigation';
+import {HomeScreen} from './HomeScreen';
+import {SHOWS} from './data';
+import {navigation} from './testing/navigation';
 
 const headliners = () => screen
     .getAllByText(/seats left$/)

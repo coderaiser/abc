@@ -2,7 +2,7 @@ import {
     SHOWS,
     colors,
     fetchRandomJoke,
-} from '../src/data';
+} from './data';
 
 test('SHOWS: ids are unique', () => {
     const ids = [];

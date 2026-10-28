@@ -27,7 +27,7 @@
 - **Tool / model:** Claude Code, configured model `claude-sonnet-5-5` (the serving model may differ).
 - **Prompts (summarized):** "do plan, give patch for git apply"; "with coverage, 100%";
   "we can keep behaviour and refactor later".
-- **Changed:** `jest.config.cjs` (coverage threshold 100%), `jest.setup.ts` (mocks), `__tests__/*`
+- **Changed:** `jest.config.cjs` (coverage threshold 100%), `jest.setup.ts` (mocks), `*.test.ts(x)` next to the code
   (22 tests), `.madrun.ts` (`test` runs with coverage), three `istanbul ignore next` markers in
   `src/HomeScreen.tsx` for code that is unreachable today.
 - **Developer accepted / rejected:** to be filled in by the developer.

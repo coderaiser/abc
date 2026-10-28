@@ -4,7 +4,7 @@ import {
     screen,
 } from '@testing-library/react-native';
 import * as amplitude from '@amplitude/analytics-react-native';
-import {HomeScreen} from '../src/HomeScreen';
+import {HomeScreen} from './HomeScreen';
 
 const CONFIRMATION = `You're on the list. See you at the show.`;
 

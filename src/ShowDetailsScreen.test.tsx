@@ -3,8 +3,8 @@ import {
     render,
     screen,
 } from '@testing-library/react-native';
-import {ShowDetailsScreen} from '../src/ShowDetailsScreen';
-import {navigation, route} from './helpers/navigation';
+import {ShowDetailsScreen} from './ShowDetailsScreen';
+import {navigation, route} from './testing/navigation';
 
 test('shows the headliner and venue of the routed show', async () => {
     await render(
