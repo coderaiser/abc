@@ -26,6 +26,8 @@ import {
     colors,
 } from './data';
 
+const AUTO_REFRESH_MS = 30000;
+
 // The whole home experience lives in this one file for now. It works, but it
 // was put together fast. Structure it however you think it should be.
 export function HomeScreen() {
@@ -58,6 +60,12 @@ export function HomeScreen() {
             duration: 450,
         });
         loadJoke();
+        
+        const timer = setInterval(() => {
+            loadJoke();
+        }, AUTO_REFRESH_MS);
+        
+        return () => clearInterval(timer);
     }, []);
     
     const onManualRefresh = () => {

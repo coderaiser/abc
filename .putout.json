@@ -2,5 +2,10 @@
     "rules": {
         "promises/remove-useless-async": "off",
         "nodejs/declare": "off"
+    },
+    "match": {
+        "index.js": {
+            "esm/remove-empty-import": "off"
+        }
     }
 }
