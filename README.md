@@ -1,27 +1,48 @@
-# The Punchline (React Native 0.77, iOS)
+# The Punchline — React Native Starter
 
-## Run
+A rough starter for **The Punchline**, a fictional comedy club. It is a single
+React Native screen with a joke card, an upcoming-shows list, and a ticket
+booking form. It runs, but it is deliberately rough around the edges.
 
-Requirements: Xcode + an iOS simulator, CocoaPods, [bun](https://bun.sh).
+It is also deliberately **minimal and unstructured** — most of the app lives in
+one file (`src/HomeScreen.tsx`), analytics calls are inline, and there is no
+state or analytics layer. How you organize it is up to you.
 
-The repo holds app source only (no `ios/` folder). Generate the native shell
-once, then bring the source over it:
+Your job is described in [`ASSIGNMENT.md`](./ASSIGNMENT.md).
 
-```bash
-bunx @react-native-community/cli@15 init ThePunchline --version 0.77.3 --skip-install
-# copy App.tsx index.js app.json babel.config.js tsconfig.json package.json
-# .eslintrc.js .prettierrc.js .env.example and src/ into ThePunchline/
-cd ThePunchline
-cp .env.example .env     # put your Amplitude API key in .env
-bun install
-bun run pods
-bun run ios
-```
+## Stack
 
-Checks: `bun run tsc`, `bun run lint`, `bun run test`.
+Bare React Native `0.77` with TypeScript. See `package.json` for the
+dependencies that are already wired up.
+
+## Getting it running
+
+These files are the app source (`App.tsx`, `index.js`, `src/`, and config). You
+need to run them inside a React Native project with native iOS/Android folders.
+
+1. Create a fresh RN 0.77 app in a scratch folder:
+   ```bash
+   npx @react-native-community/cli@15 init ThePunchline --version 0.77.3
+   ```
+2. Copy `App.tsx`, `index.js`, `app.json`, `babel.config.js`, `tsconfig.json`
+   and the `src/` folder from this starter over the generated files.
+3. Install the dependencies listed in this starter's `package.json`, then
+   `cd ios && pod install`.
+4. Run it:
+   ```bash
+   npm run ios    # or: npm run android
+   ```
+
+If you prefer a different but equivalent setup, that is fine — just document how
+to run your submission.
 
 ## Amplitude
 
-Key lives in `.env` (`AMPLITUDE_API_KEY`), never in source. Without a key,
-analytics is a no-op. Events are defined in `src/analytics/events.ts`.
-_(verification steps: to be added)_
+The starter calls `amplitude.init(...)` with a placeholder key in `App.tsx`.
+Create a free Amplitude account, plug in a real key, and make sure events
+actually arrive in a project you can show us.
+
+## Before you submit
+
+Update this README with how to run your submission and how to see your Amplitude
+events. See `ASSIGNMENT.md` for the full list of deliverables.

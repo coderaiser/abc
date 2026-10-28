@@ -1,0 +1,10 @@
+---
+description: The Punchline RN exercise conventions
+alwaysApply: true
+---
+
+- This is a React Native (bare, TypeScript) take-home exercise.
+- Follow CLAUDE.md, including logging meaningful AI contributions to
+  AI_USAGE_LOG.md.
+- Keep analytics logic separate from UI where reasonable.
+- Prioritise a working joke experience and working Amplitude events.

@@ -3,10 +3,10 @@ import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import * as amplitude from '@amplitude/analytics-react-native';
 
 import {HomeScreen} from './src/HomeScreen';
 import {ShowDetailsScreen} from './src/ShowDetailsScreen';
-import {initAnalytics} from './src/analytics';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -15,7 +15,9 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-initAnalytics();
+// TODO(candidate): move the key out of source, and decide where analytics setup
+// really belongs.
+amplitude.init('REPLACE_WITH_YOUR_AMPLITUDE_API_KEY');
 
 export default function App() {
   return (
