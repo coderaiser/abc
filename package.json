@@ -26,16 +26,20 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.9",
-    "@babel/preset-env": "^8.0.7",
-    "@babel/runtime": "^8.0.8",
+    "@babel/core": "^7.25.0",
+    "@babel/preset-env": "^7.25.0",
+    "@babel/runtime": "^7.25.0",
+    "@react-native-community/cli": "^20.2.0",
     "@react-native/babel-preset": "^0.88.1",
     "@react-native/metro-config": "^0.88.1",
+    "@react-native/typescript-config": "^0.88.1",
+    "@types/jest": "^30.0.0",
     "@types/react": "^19.3.0",
     "eslint-plugin-putout": "^31.4.2",
     "jiti": "^2.7.0",
     "madrun": "^13.0.4",
     "putout": "^42.22.1",
+    "react-native-worklets": "^0.13.1",
     "typescript": "^6.0.0"
   }
 }
