@@ -17,7 +17,7 @@ type ShowsListProps = {
 
 export function ShowsList({onSelectShow}: ShowsListProps) {
     const [sortByScarcity, setSortByScarcity] = useState(false);
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
     
     const shows = sortByScarcity ? sortShows(SHOWS) : SHOWS;
     
@@ -34,14 +34,18 @@ export function ShowsList({onSelectShow}: ShowsListProps) {
             </Pressable>
             <FlatList
                 data={shows}
-                keyExtractor={(item, index) => String(index)}
-                renderItem={({item, index}) => (
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => (
                     <Pressable
                         onPress={() => {
-                            setSelectedIndex(index);
+                            setSelectedId(item.id);
                             onSelectShow(item.id);
                         }}
-                        style={[styles.row, selectedIndex === index && styles.rowSelected]}
+                        accessibilityRole="button"
+                        accessibilityState={{
+                            selected: selectedId === item.id,
+                        }}
+                        style={[styles.row, selectedId === item.id && styles.rowSelected]}
                     >
                         <Text style={styles.headliner}>{item.headliner}</Text>
                         <Text style={styles.meta}>

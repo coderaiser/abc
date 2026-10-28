@@ -42,3 +42,32 @@ test.each(['1', '6'])('bookingSchema: accepts %s tickets', async (quantity) => {
         quantity,
     })).resolves.toBe(true);
 });
+
+test.each([
+    [{
+        quantity: '0',
+    }, 'Choose 1 to 6 tickets'],
+    [{
+        quantity: '7',
+    }, 'Choose 1 to 6 tickets'],
+    [{
+        quantity: 'abc',
+    }, 'Enter a number'],
+    [{
+        quantity: '',
+    }, 'Enter a number'],
+    [{
+        name: '',
+    }, 'Name is required'],
+    [{
+        email: '',
+    }, 'Email is required'],
+    [{
+        email: 'nope',
+    }, 'Enter a valid email'],
+])('bookingSchema: %j gives the message %s', async (patch, message) => {
+    await expect(bookingSchema.validate({
+        ...valid,
+        ...patch,
+    })).rejects.toThrow(message);
+});

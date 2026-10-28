@@ -11,13 +11,19 @@ export type JokeLoadedProps = {
 };
 
 export type BookingSubmittedProps = {
-    name: string;
-    email: string;
     quantity: number;
 };
 
 export const trackJokeLoaded = (props: JokeLoadedProps) => {
     amplitude.track('joke_loaded', props);
+};
+
+export type JokeLoadFailedProps = {
+    refresh_count: number;
+};
+
+export const trackJokeLoadFailed = (props: JokeLoadFailedProps) => {
+    amplitude.track('joke_load_failed', props);
 };
 
 export const trackJokeRefreshed = () => {

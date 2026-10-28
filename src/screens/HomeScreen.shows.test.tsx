@@ -88,3 +88,39 @@ test('navigates with the id of the pressed row after sorting', async () => {
         showId: 's6',
     });
 });
+
+const selectedRow = (name: RegExp) => screen.queryByRole('button', {
+    name,
+    selected: true,
+});
+
+test('no row is selected at the start', async () => {
+    await renderHome();
+    
+    expect(screen.queryByRole('button', {
+        selected: true,
+    })).toBeNull();
+});
+
+test('pressing a row selects that row', async () => {
+    await renderHome();
+    await fireEvent.press(screen.getByText('Priya Okafor'));
+    
+    expect(selectedRow(/Priya Okafor/)).toBeTruthy();
+});
+
+test('the selected row stays selected after sorting', async () => {
+    await renderHome();
+    await fireEvent.press(screen.getByText('Priya Okafor'));
+    await fireEvent.press(screen.getByText('Sort: date'));
+    
+    expect(selectedRow(/Priya Okafor/)).toBeTruthy();
+});
+
+test('the row that takes the old position is not selected after sorting', async () => {
+    await renderHome();
+    await fireEvent.press(screen.getByText('Priya Okafor'));
+    await fireEvent.press(screen.getByText('Sort: date'));
+    
+    expect(selectedRow(/Sofia Grant/)).toBeNull();
+});

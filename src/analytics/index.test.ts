@@ -2,6 +2,7 @@ import * as amplitude from '@amplitude/analytics-react-native';
 import {
     initAnalytics,
     trackBookingSubmitted,
+    trackJokeLoadFailed,
     trackJokeLoaded,
     trackJokeRefreshed,
 } from '.';
@@ -32,12 +33,20 @@ test('trackJokeRefreshed: sends joke_refreshed', () => {
 
 test('trackBookingSubmitted: sends booking_submitted with its properties', () => {
     const props = {
-        name: 'Ann',
-        email: 'ann@example.com',
         quantity: 3,
     };
     
     trackBookingSubmitted(props);
     
     expect(amplitude.track).toHaveBeenCalledWith('booking_submitted', props);
+});
+
+test('trackJokeLoadFailed: sends joke_load_failed with its properties', () => {
+    trackJokeLoadFailed({
+        refresh_count: 1,
+    });
+    
+    expect(amplitude.track).toHaveBeenCalledWith('joke_load_failed', {
+        refresh_count: 1,
+    });
 });

@@ -1,46 +1,81 @@
-import {useEffect, useState} from 'react';
+import {
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import {
     fetchRandomJoke,
     Joke,
 } from '../../api/jokes';
 import {
+    trackJokeLoadFailed,
     trackJokeLoaded,
     trackJokeRefreshed,
 } from '../../analytics';
 
 const AUTO_REFRESH_MS = 30_000;
 
+export type JokeStatus = 'loading' | 'ready' | 'error';
+
 export const useJoke = () => {
     const [joke, setJoke] = useState<Joke | null>(null);
-    const [refreshCount, setRefreshCount] = useState(0);
+    const [status, setStatus] = useState<JokeStatus>('loading');
+    const refreshCount = useRef(0);
+    const requestId = useRef(0);
+    const mounted = useRef(true);
     
     const loadJoke = async () => {
-        const next = await fetchRandomJoke();
-        setJoke(next);
-        trackJokeLoaded({
-            joke_id: next.id,
-            refresh_count: refreshCount,
-        });
+        ++requestId.current;
+        
+        const id = requestId.current;
+        const isStale = () => !mounted.current || id !== requestId.current;
+        
+        try {
+            const next = await fetchRandomJoke();
+            
+            if (isStale())
+                return;
+            
+            setJoke(next);
+            setStatus('ready');
+            trackJokeLoaded({
+                joke_id: next.id,
+                refresh_count: refreshCount.current,
+            });
+        } catch {
+            if (isStale())
+                return;
+            
+            setStatus('error');
+            trackJokeLoadFailed({
+                refresh_count: refreshCount.current,
+            });
+        }
     };
     
     useEffect(() => {
+        mounted.current = true;
         loadJoke();
         
         const timer = setInterval(() => {
             loadJoke();
         }, AUTO_REFRESH_MS);
         
-        return () => clearInterval(timer);
+        return () => {
+            mounted.current = false;
+            clearInterval(timer);
+        };
     }, []);
     
     const refresh = () => {
-        setRefreshCount((c) => c + 1);
+        ++refreshCount.current;
         loadJoke();
         trackJokeRefreshed();
     };
     
     return {
         joke,
+        status,
         refresh,
     };
 };

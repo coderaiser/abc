@@ -13,9 +13,10 @@ export const bookingSchema = Yup.object({
         .required('Email is required'),
     quantity: Yup
         .number()
-        .min(1)
-        .max(6)
-        .required(),
+        .typeError('Enter a number')
+        .min(1, 'Choose 1 to 6 tickets')
+        .max(6, 'Choose 1 to 6 tickets')
+        .required('Enter a number'),
 });
 
 export const useBookingForm = () => {
@@ -28,22 +29,16 @@ export const useBookingForm = () => {
             quantity: '2',
         },
         validationSchema: bookingSchema,
-        // Unreachable today: formik.handleSubmit is never called.
-        onSubmit: /* istanbul ignore next */() => setBooked(true),
+        onSubmit: (values) => {
+            trackBookingSubmitted({
+                quantity: Number(values.quantity),
+            });
+            setBooked(true);
+        },
     });
-    
-    const onBook = () => {
-        trackBookingSubmitted({
-            name: formik.values.name,
-            email: formik.values.email,
-            quantity: Number(formik.values.quantity),
-        });
-        setBooked(true);
-    };
     
     return {
         formik,
         booked,
-        onBook,
     };
 };

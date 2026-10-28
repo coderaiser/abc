@@ -8,11 +8,7 @@ import {colors} from '../../theme/colors';
 import {useBookingForm} from './useBookingForm';
 
 export function BookingForm() {
-    const {
-        formik,
-        booked,
-        onBook,
-    } = useBookingForm();
+    const {formik, booked} = useBookingForm();
     
     return (
         <>
@@ -23,8 +19,9 @@ export function BookingForm() {
                 placeholderTextColor={colors.muted}
                 value={formik.values.name}
                 onChangeText={formik.handleChange('name')}
+                onBlur={() => formik.setFieldTouched('name')}
             />
-            { /* istanbul ignore next */formik.touched.name && formik.errors.name
+            {formik.touched.name && formik.errors.name
                 ? (
                     <Text style={styles.error}>{formik.errors.name}</Text>
                 )
@@ -33,10 +30,13 @@ export function BookingForm() {
                 style={styles.input}
                 placeholder="Email"
                 placeholderTextColor={colors.muted}
+                keyboardType="email-address"
+                autoCapitalize="none"
                 value={formik.values.email}
                 onChangeText={formik.handleChange('email')}
+                onBlur={() => formik.setFieldTouched('email')}
             />
-            { /* istanbul ignore next */formik.touched.email && formik.errors.email
+            {formik.touched.email && formik.errors.email
                 ? (
                     <Text style={styles.error}>{formik.errors.email}</Text>
                 )
@@ -45,10 +45,17 @@ export function BookingForm() {
                 style={styles.input}
                 placeholder="Tickets"
                 placeholderTextColor={colors.muted}
+                keyboardType="number-pad"
                 value={formik.values.quantity}
                 onChangeText={formik.handleChange('quantity')}
+                onBlur={() => formik.setFieldTouched('quantity')}
             />
-            <Pressable style={styles.book} onPress={onBook}>
+            {formik.touched.quantity && formik.errors.quantity
+                ? (
+                    <Text style={styles.error}>{formik.errors.quantity}</Text>
+                )
+                : null}
+            <Pressable style={styles.book} onPress={() => formik.handleSubmit()}>
                 <Text style={styles.bookText}>Book now</Text>
             </Pressable>
             {booked

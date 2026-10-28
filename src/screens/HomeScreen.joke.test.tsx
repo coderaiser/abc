@@ -5,6 +5,7 @@ import {
     render,
     screen,
 } from '@testing-library/react-native';
+import * as jokes from '../api/jokes';
 import {HomeScreen} from './HomeScreen';
 
 const SETUP = 'I told my therapist about my stage fright.';
@@ -77,14 +78,28 @@ test('"New joke" loads another joke', async () => {
     expect(loaded()).toHaveLength(2);
 });
 
-test('keeps current behaviour: refresh_count lags one press behind', async () => {
+test('the first load tracks refresh_count 0', async () => {
+    await renderLoaded();
+    
+    expect(loaded()[0][1].refresh_count).toBe(0);
+});
+
+test('two manual refreshes track refresh_count 0, 1, 2', async () => {
     await renderLoaded();
     await fireEvent.press(screen.getByText('New joke'));
     await fireEvent.press(screen.getByText('New joke'));
     
     expect(
         loaded().map(([, props]) => props.refresh_count),
-    ).toEqual([0, 0, 1]);
+    ).toEqual([0, 1, 2]);
+});
+
+test('an automatic refresh after one manual refresh tracks refresh_count 1', async () => {
+    await renderLoaded();
+    await fireEvent.press(screen.getByText('New joke'));
+    await advance(30_000);
+    
+    expect(loaded().at(-1)[1].refresh_count).toBe(1);
 });
 
 test('does not refresh the joke before 30 seconds', async () => {
@@ -108,4 +123,29 @@ test('stops refreshing after unmount', async () => {
     await advance(60_000);
     
     expect(loaded()).toHaveLength(1);
+});
+
+const ERROR_TEXT = 'Could not load a joke. Try again.';
+
+test('a rejected first load shows the error text', async () => {
+    jest
+        .spyOn(jokes, 'fetchRandomJoke')
+        .mockRejectedValueOnce(Error('offline'));
+    
+    await renderHome();
+    
+    expect(await screen.findByText(ERROR_TEXT)).toBeTruthy();
+});
+
+test('a good refresh after an error removes the error text', async () => {
+    jest
+        .spyOn(jokes, 'fetchRandomJoke')
+        .mockRejectedValueOnce(Error('offline'));
+    
+    await renderHome();
+    await screen.findByText(ERROR_TEXT);
+    await fireEvent.press(screen.getByText('New joke'));
+    await screen.findByText(SETUP);
+    
+    expect(screen.queryByText(ERROR_TEXT)).toBeNull();
 });

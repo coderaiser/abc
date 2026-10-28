@@ -13,9 +13,14 @@ import {colors} from '../../theme/colors';
 import {useJoke} from './useJoke';
 
 export function JokeCard() {
-    const {joke, refresh} = useJoke();
+    const {
+        joke,
+        status,
+        refresh,
+    } = useJoke();
     
     const cardOpacity = useSharedValue(0);
+    
     const cardStyle = useAnimatedStyle(() => ({
         opacity: cardOpacity.value,
         transform: [{
@@ -37,6 +42,11 @@ export function JokeCard() {
                 </Text>
                 <Text style={styles.punchline}>{joke ? joke.punchline : ''}</Text>
             </Animated.View>
+            {status === 'error'
+                ? (
+                    <Text style={styles.error}>Could not load a joke. Try again.</Text>
+                )
+                : null}
             <Pressable style={styles.refresh} onPress={refresh}>
                 <Text style={styles.refreshText}>New joke</Text>
             </Pressable>
@@ -45,6 +55,11 @@ export function JokeCard() {
 }
 
 const styles = StyleSheet.create({
+    error: {
+        color: colors.danger,
+        fontSize: 13,
+        marginTop: 8,
+    },
     card: {
         backgroundColor: colors.card,
         borderRadius: 16,
