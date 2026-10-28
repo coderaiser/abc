@@ -1,6 +1,5 @@
 *.swp
 *.log
-*.lock
 
 .*.swp
 .idea
